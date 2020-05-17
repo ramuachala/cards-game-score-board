@@ -1,13 +1,92 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.cards-game-app {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  height: 32px;
+  background-color: #2196f3;
+  padding: 16px;
+}
+
+.header .title {
+  margin: 0;
+  color: #fff;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.padding-16 {
+  padding: 16px;
+}
+
+.palyer-meta-form {
+  display: flex;
+}
+.palyer-meta-form > div {
+  margin-right: 24px;
+}
+
+.palyer-form {
+  display: flex;
+}
+
+input:disabled {
+  background: #f5f5f5;
+  color: #333;
+  font-weight: bold;
+}
+
+.above-400 {
+  color: red !important;
+}
+
+.out-of-game {
+  border: 1px solid red !important;
+  background: red !important;
+  color: #fff !important;
+}
+
+.end-game-btn {
+  margin-top: 20px;
+  color: #fff;
+  background: #03a9f4;
+  font-weight: 700;
+  padding: 12px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.game-over-disabled {
+  cursor: no-drop !important;
+  background: gray !important;
+  border: gray !important;
+}
+
+
+.start-new-game-btn {
+  margin-top: 20px;
+  color: #fff;
+  background: green;
+  font-weight: 700;
+  padding: 12px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
