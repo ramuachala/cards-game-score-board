@@ -13,6 +13,7 @@ import {
   MAX_SCORE,
   GAME_OVER,
 } from "../../helpers/Constants";
+import html2canvas from "html2canvas";
 
 class PlayersForm extends Component {
   constructor(props) {
@@ -94,25 +95,44 @@ class PlayersForm extends Component {
     const scoresHistory = [...this.state.scoresHistory];
     const currentScores = {};
     let player = undefined;
+    let isMaxScoreExceeded = false;
     for (let i = 0; i < players.length; i++) {
       player = players[i];
       if (Number(player.score) > this.state.maxScore) {
+        isMaxScoreExceeded = true;
         alert(`Please check the scores entered for ${player.name}`);
         return;
-      } else {
+      }
+    }
+    if (!isMaxScoreExceeded) {
+      for (let i = 0; i < players.length; i++) {
+        player = players[i];
         player.totalScore = Number(player.totalScore) + Number(player.score);
         currentScores[player.name] = player.score;
         player.score = 0;
         players[i] = player;
       }
+      scoresHistory.push(currentScores);
+      this.setState(
+        {
+          scoresHistory,
+          players,
+        },
+        () => this.takeScreenShot(scoresHistory)
+      );
+      setDataInLS(HISTORY_SCORES, JSON.stringify(scoresHistory));
+      setDataInLS(PLAYERS, JSON.stringify(players));
     }
-    scoresHistory.push(currentScores);
-    this.setState({
-      scoresHistory,
-      players,
+  };
+
+  takeScreenShot = (scoresHistory) => {
+    html2canvas(document.body).then(function (canvas) {
+      const link = document.createElement("a");
+      link.href = canvas.toDataURL("image/png");
+      link.download = `cards_game_score_${scoresHistory.length}`;
+      document.body.appendChild(link);
+      link.click();
     });
-    setDataInLS(HISTORY_SCORES, JSON.stringify(scoresHistory));
-    setDataInLS(PLAYERS, JSON.stringify(players));
   };
 
   handleEndGame = () => {
