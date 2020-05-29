@@ -79,7 +79,6 @@ input:disabled {
   border: gray !important;
 }
 
-
 .start-new-game-btn {
   margin-top: 20px;
   color: #fff;
@@ -90,3 +89,27 @@ input:disabled {
   border-radius: 8px;
 }
 
+@media screen and (max-width: 480px) {
+  .palyer-meta-form {
+    flex-direction: column;
+  }
+  .palyer-meta-form > div {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .palyer-form {
+    flex-direction: column;
+  }
+
+  .palyer-form > div {
+    display: flex;
+    margin-bottom: 8px;
+  }
+  .header .title {
+    font-size: 18px;
+  }
+  .history-data > div {
+    display: flex;
+  }
+}

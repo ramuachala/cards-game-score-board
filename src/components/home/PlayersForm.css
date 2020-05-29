@@ -2,12 +2,13 @@
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 6px;
-  height: 16px;
+  padding: 9px;
 }
 
-.start_game_btn, .add_row_btn {
-  background-color: #2196F3;
-  border: 1px solid #2196F3;
+.start_game_btn,
+.add_row_btn {
+  background-color: #2196f3;
+  border: 1px solid #2196f3;
   padding: 8px;
   color: #fff;
   font-weight: 600;
@@ -17,8 +18,9 @@
   cursor: pointer;
 }
 
-.start_game_btn:hover, .add_row_btn:hover {
-  background-color: #01579B;
+.start_game_btn:hover,
+.add_row_btn:hover {
+  background-color: #01579b;
 }
 
 .start_game_btn:disabled {
@@ -31,10 +33,41 @@
 }
 
 .total-score {
-    text-align: center;
-    font-size: 18px;
-    color: #000;
-    font-weight: 700;
-    width: 75px;
-    margin: 16px auto;
+  text-align: center;
+  font-size: 18px;
+  color: #000;
+  font-weight: 700;
+  width: 75px;
+  margin: 16px auto;
+}
+
+.share-btn {
+  display: none;
+}
+
+@media screen and (max-width: 480px) {
+  .player-name-input {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+  }
+  .start_game_btn,
+  .end-game-btn,
+  .start-new-game-btn {
+    width: 100%;
+  }
+  .player-share {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .share-btn {
+    display: block;
+    background-color: #00BCD4;
+    color: #fff;
+    border-radius: 4px;
+    height: 32px;
+    border: 1px solid;
+    cursor: pointer;
+  }
 }

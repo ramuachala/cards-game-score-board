@@ -157,6 +157,23 @@ class PlayersForm extends Component {
     window.location.href = "/";
   };
 
+  handleShare = () => {
+    let scoresData = "";
+    for (let i = 0; i < this.state.noOfPlayers; i++) {
+      scoresData += `${this.state.players[i].name}: ${this.state.players[i].totalScore},  `;
+    }
+    if (navigator.share) {
+      navigator
+        .share({
+          title: "Cards Game Score",
+          text: scoresData,
+          url: "https://ihc-championship.firebaseapp.com/",
+        })
+        .then(() => window.alert("Sharing scores successful."))
+        .catch((error) => window.alert("Failed to share scores: ", error));
+    }
+  };
+
   render() {
     const {
       noOfPlayers,
@@ -252,7 +269,12 @@ class PlayersForm extends Component {
         </React.Fragment>
         {isStart && (
           <React.Fragment>
-            <p>Enter Player Scores</p>
+            <div className="player-share">
+              <p>Enter Player Scores</p>
+              <button className="share-btn" onClick={this.handleShare}>
+                Share
+              </button>
+            </div>
             <div className="palyer-form">
               {players.map((player, index) => (
                 <input
