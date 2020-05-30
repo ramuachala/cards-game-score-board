@@ -89,6 +89,20 @@ input:disabled {
   border-radius: 8px;
 }
 
+.rejoin-btn {
+  color: #03a9f4;
+  border: none;
+  text-align: center;
+  width: 100%;
+  cursor: pointer;
+  background-color: #fff;
+  font-weight: bold;
+}
+
+.rejoin-btn:hover {
+  text-decoration: underline;
+}
+
 @media screen and (max-width: 480px) {
   .palyer-meta-form {
     flex-direction: column;
@@ -111,5 +125,11 @@ input:disabled {
   }
   .history-data > div {
     display: flex;
+  }
+  .out-of-game {
+    margin-bottom: 0px !important;
+    margin-top: 10px !important;
+    width: 63px !important;
+    margin-left: 12px !important;
   }
 }

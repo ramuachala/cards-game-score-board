@@ -14,8 +14,10 @@ import {
   GAME_OVER,
 } from "../../helpers/Constants";
 import html2canvas from "html2canvas";
+import ScoresHisotry from "./ScoresHistory";
 
 class PlayersForm extends Component {
+  rejoined = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -91,6 +93,7 @@ class PlayersForm extends Component {
   };
 
   handleAddScore = () => {
+    this.rejoined = false;
     const players = [...this.state.players];
     const scoresHistory = [...this.state.scoresHistory];
     const currentScores = {};
@@ -174,6 +177,42 @@ class PlayersForm extends Component {
     }
   };
 
+  getMaxScore = () => {
+    const totalScores = [];
+    this.state.players.filter((ele) => {
+      if (ele.totalScore < 500) {
+        totalScores.push(ele.totalScore);
+      }
+    });
+    return Math.max(...totalScores);
+  };
+
+  handleRejoin = (player, selectedIndex) => {
+    const isConfirm = window.confirm(
+      `Are you sure!! Do you want to rejoin ${player.name} into the Game?`
+    );
+    const players = [...this.state.players];
+    if (isConfirm) {
+      const maxScore = this.getMaxScore();
+      if (this.rejoined === false) {
+        players[selectedIndex].totalScore = Number(maxScore) + 1;
+        this.rejoined = true;
+      } else {
+        players[selectedIndex].totalScore = Number(maxScore);
+      }
+      const scoresHistory = [...this.state.scoresHistory];
+      scoresHistory.forEach((ele) => {
+        ele[player.name] = 0;
+      });
+      setDataInLS(HISTORY_SCORES, JSON.stringify(scoresHistory));
+      setDataInLS(PLAYERS, JSON.stringify(players));
+      this.setState({
+        scoresHistory,
+        players,
+      });
+    }
+  };
+
   render() {
     const {
       noOfPlayers,
@@ -238,18 +277,28 @@ class PlayersForm extends Component {
                       value={player.name}
                       onChange={(event) => this.handleChange(index, event)}
                     />
-                    <p
-                      className={`total-score ${
-                        player.totalScore > scoreLevel &&
-                        player.totalScore <= gameScore - 1
-                          ? "above-400"
-                          : player.totalScore >= gameScore
-                          ? "out-of-game"
-                          : ""
-                      }`}
-                    >
-                      {player.totalScore}
-                    </p>
+                    <div>
+                      <p
+                        className={`total-score ${
+                          player.totalScore > scoreLevel &&
+                          player.totalScore <= gameScore - 1
+                            ? "above-400"
+                            : player.totalScore >= gameScore
+                            ? "out-of-game"
+                            : ""
+                        }`}
+                      >
+                        {player.totalScore}
+                      </p>
+                      {player.totalScore >= gameScore && (
+                        <button
+                          className="rejoin-btn"
+                          onClick={() => this.handleRejoin(player, index)}
+                        >
+                          Rejoin
+                        </button>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -299,26 +348,7 @@ class PlayersForm extends Component {
                 Add Score
               </button>
             </div>
-            {scoresHistory.length > 0 && (
-              <div>
-                <p>Scores History</p>
-                <div className="history-data">
-                  {scoresHistory.map((history, hi) => (
-                    <div key={hi}>
-                      {players.map((player, index) => (
-                        <input
-                          key={index}
-                          className="player-name-input"
-                          type="number"
-                          disabled
-                          value={history[player.name]}
-                        />
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+            <ScoresHisotry players={players} scoresHistory={scoresHistory} />
           </React.Fragment>
         )}
         <div>
