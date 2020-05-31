@@ -45,6 +45,22 @@
   display: none;
 }
 
+.player-score-input-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.player-name-label {
+  position: absolute;
+  top: -7px;
+  left: 10px;
+  background: #fff;
+  font-size: 12px;
+  padding: 0 6px;
+  color: #607D8B;
+}
+
 @media screen and (max-width: 480px) {
   .player-name-input {
     width: 100%;
@@ -63,7 +79,7 @@
   }
   .share-btn {
     display: block;
-    background-color: #00BCD4;
+    background-color: #00bcd4;
     color: #fff;
     border-radius: 4px;
     height: 32px;

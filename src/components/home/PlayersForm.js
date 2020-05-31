@@ -163,14 +163,16 @@ class PlayersForm extends Component {
   handleShare = () => {
     let scoresData = "";
     for (let i = 0; i < this.state.noOfPlayers; i++) {
-      scoresData += `${this.state.players[i].name}: ${this.state.players[i].totalScore},  `;
+      if (this.state.players[i].totalScore < 500) {
+        scoresData += `${this.state.players[i].name}: ${this.state.players[i].totalScore},  `;
+      }
     }
     if (navigator.share) {
       navigator
         .share({
           title: "Cards Game Score",
           text: scoresData,
-          url: "https://ihc-championship.firebaseapp.com/",
+          url: "",
         })
         .then(() => window.alert("Sharing scores successful."))
         .catch((error) => window.alert("Failed to share scores: ", error));
@@ -326,17 +328,19 @@ class PlayersForm extends Component {
             </div>
             <div className="palyer-form">
               {players.map((player, index) => (
-                <input
-                  key={index}
-                  placeholder="Player Score"
-                  className="player-name-input"
-                  type="number"
-                  name="score"
-                  max="80"
-                  disabled={player.totalScore >= gameScore}
-                  value={player.score}
-                  onChange={(event) => this.handleChange(index, event)}
-                />
+                <div key={index} className="player-score-input-container">
+                  <label className="player-name-label">{player.name}</label>
+                  <input
+                    placeholder="Player Score"
+                    className="player-name-input"
+                    type="number"
+                    name="score"
+                    max="80"
+                    disabled={player.totalScore >= gameScore}
+                    value={player.score}
+                    onChange={(event) => this.handleChange(index, event)}
+                  />
+                </div>
               ))}
               <button
                 disabled={isGameOver}
